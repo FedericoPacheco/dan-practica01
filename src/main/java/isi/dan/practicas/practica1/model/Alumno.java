@@ -42,5 +42,9 @@ public class Alumno {
     public String toString() {
         return "Alumno [id=" + id + ", nombre=" + nombre + ", legajo=" + legajo + ", cursosInscriptos="
                 + cursosInscriptos + "]";
+    }
+
+    public void addCurso(Curso c) {
+        this.cursosInscriptos.add(c.getId());
     } 
 }

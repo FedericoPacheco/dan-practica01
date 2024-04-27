@@ -42,7 +42,7 @@ public class CursoDAOImpl implements DAO<Curso> {
     public Optional<Curso> buscarPorId(Integer id) throws RecursoNoEncontradoException{
         return Optional.ofNullable(
             listaCursos.stream().filter(d -> d.getId() == id).findFirst()
-            .orElseThrow(() -> new RecursoNoEncontradoException(id, "Docente"))
+            .orElseThrow(() -> new RecursoNoEncontradoException(id, "Curso"))
         );
     }
 

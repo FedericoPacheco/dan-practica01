@@ -7,7 +7,7 @@ import isi.dan.practicas.practica1.exception.DocenteExcedidoException;
 
 public class Docente {
 
-    public static final Integer MAX_CURSOS = 3;
+    public static final Integer MAX_CURSOS = 1;
 
     private Integer id;
     private String nombre;
