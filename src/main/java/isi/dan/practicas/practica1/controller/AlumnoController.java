@@ -14,13 +14,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import isi.dan.practicas.practica1.exception.RecursoNoEncontradoException;
 import isi.dan.practicas.practica1.model.Alumno;
-import isi.dan.practicas.practica1.service.AlumnoDAOImpl;
+import isi.dan.practicas.practica1.service.persistence.database.AlumnoDAOImplDB;
+//import isi.dan.practicas.practica1.service.persistence.memory.AlumnoDAOImplMem;
 
 @Controller 
 @RequestMapping("/alumno")
 public class AlumnoController {
     @Autowired
-    AlumnoDAOImpl adi = AlumnoDAOImpl.getInstance();
+    private AlumnoDAOImplDB adi;
+    //private AlumnoDAOImplMem adi;
 
     @GetMapping(value = "/{id}")
     @ResponseBody

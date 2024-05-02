@@ -1,4 +1,4 @@
-package isi.dan.practicas.practica1.service;
+package isi.dan.practicas.practica1.service.persistence.memory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,26 +8,19 @@ import org.springframework.stereotype.Service;
 
 import isi.dan.practicas.practica1.exception.RecursoNoEncontradoException;
 import isi.dan.practicas.practica1.model.Curso;
+import isi.dan.practicas.practica1.service.persistence.DAO;
 
 @Service
-public class CursoDAOImpl implements DAO<Curso> {
+public class CursoDAOImplMem implements DAO<Curso> {
     // Para mi inscribir el alumno y asignar el docente no son responsabilidades del dao
 
     private Integer contador_id;
     private List<Curso> listaCursos;
-    private static CursoDAOImpl instance;
 
-    // Se utiliza patron singleton
-    private CursoDAOImpl() {
+    public CursoDAOImplMem() {
         this.contador_id = 0;
         this.listaCursos = new ArrayList<>();
-    }
-
-    public static CursoDAOImpl getInstance() {
-        if (instance == null)
-            instance = new CursoDAOImpl(); 
-        return instance;
-    }   
+    } 
 
     @Override
     public void guardar(Curso curso) throws RecursoNoEncontradoException{

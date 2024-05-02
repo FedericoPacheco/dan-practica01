@@ -19,21 +19,25 @@ import isi.dan.practicas.practica1.exception.RecursoNoEncontradoException;
 import isi.dan.practicas.practica1.model.Alumno;
 import isi.dan.practicas.practica1.model.Curso;
 import isi.dan.practicas.practica1.model.Docente;
-import isi.dan.practicas.practica1.service.AlumnoDAOImpl;
-import isi.dan.practicas.practica1.service.CursoDAOImpl;
-import isi.dan.practicas.practica1.service.DocenteDAOImpl;
+import isi.dan.practicas.practica1.service.persistence.database.AlumnoDAOImplDB;
+import isi.dan.practicas.practica1.service.persistence.database.CursoDAOImplDB;
+import isi.dan.practicas.practica1.service.persistence.database.DocenteDAOImplDB;
+//import isi.dan.practicas.practica1.service.persistence.memory.CursoDAOImplMem;
 
 @Controller 
 @RequestMapping("/curso")
 public class CursoController {
     @Autowired
-    CursoDAOImpl cdi = CursoDAOImpl.getInstance();
+    private CursoDAOImplDB cdi;
+    //private CursoDAOImplMem cdi;
 
     @Autowired
-    AlumnoDAOImpl adi = AlumnoDAOImpl.getInstance();
+    private AlumnoDAOImplDB adi;
+    //private AlumnoDAOImplMem adi;
 
     @Autowired
-    DocenteDAOImpl ddi = DocenteDAOImpl.getInstance();
+    private DocenteDAOImplDB ddi;
+    //private DocenteDAOImplMem ddi;
 
     @GetMapping(value = "/{id}")
     @ResponseBody

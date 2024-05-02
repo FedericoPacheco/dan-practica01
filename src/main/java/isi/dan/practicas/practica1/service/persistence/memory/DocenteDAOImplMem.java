@@ -1,4 +1,4 @@
-package isi.dan.practicas.practica1.service;
+package isi.dan.practicas.practica1.service.persistence.memory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,24 +8,17 @@ import org.springframework.stereotype.Service;
 
 import isi.dan.practicas.practica1.exception.RecursoNoEncontradoException;
 import isi.dan.practicas.practica1.model.Docente;
+import isi.dan.practicas.practica1.service.persistence.DAO;
 
 @Service
-public class DocenteDAOImpl implements DAO<Docente>{
+public class DocenteDAOImplMem implements DAO<Docente>{
 
     private Integer contador_id;
     private List<Docente> listaDocentes;
-    private static DocenteDAOImpl instance;
 
-    // Se utiliza patron singleton
-    private DocenteDAOImpl() {
+    public DocenteDAOImplMem() {
         this.contador_id = 0;
         this.listaDocentes = new ArrayList<>();
-    }
-
-    public static DocenteDAOImpl getInstance() {
-        if (instance == null)
-            instance = new DocenteDAOImpl();
-        return instance;
     }
 
     @Override

@@ -4,15 +4,34 @@ import java.util.LinkedList;
 import java.util.List;
 
 import isi.dan.practicas.practica1.exception.DocenteExcedidoException;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
 
+@Entity
+@Table(name = "docente", schema = "practica1")
 public class Docente {
 
     public static final Integer MAX_CURSOS = 1;
 
+    @Id
+    @Column(name = "id_docente")
+    @GeneratedValue(strategy =  GenerationType.SEQUENCE, generator = "seq_docente")
+    @SequenceGenerator(name = "seq_docente", initialValue = 0, sequenceName = "seq_docente")
     private Integer id;
+
     private String nombre;
+    
     private Double salario;
-    private List<Integer> cursosDictados;
+    
+    @Column(name = "cursos_dictados")
+    @OneToMany(mappedBy = "curso")
+    private List<Curso> cursosDictados;
     
     public Docente(String nombre, Double salario) {
         this.id = null;
@@ -27,7 +46,7 @@ public class Docente {
 
     public void addCursoDictado(Curso curso) throws DocenteExcedidoException {
         if (this.cursosDictados.size() < Docente.MAX_CURSOS)
-            this.cursosDictados.add(curso.getId());
+            this.cursosDictados.add(curso);
         else throw new DocenteExcedidoException(this.nombre);
     }
 
@@ -50,7 +69,7 @@ public class Docente {
     public void setSalario(Double salario) {
         this.salario = salario;
     }
-    public List<Integer> getCursosDictados() {
+    public List<Curso> getCursosDictados() {
         return cursosDictados;
     }
     

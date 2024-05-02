@@ -1,4 +1,4 @@
-package isi.dan.practicas.practica1.service;
+package isi.dan.practicas.practica1.service.persistence;
 
 import java.util.List;
 import java.util.Optional;
