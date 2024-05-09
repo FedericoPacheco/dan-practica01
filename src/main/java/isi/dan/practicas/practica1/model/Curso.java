@@ -23,33 +23,38 @@ public class Curso {
     
     @Id
     @Column(name = "id_curso")
-    @GeneratedValue(strategy =  GenerationType.SEQUENCE, generator = "seq_alumno")
-    @SequenceGenerator(name = "seq_alumno", initialValue = 0, sequenceName = "seq_alumno")
+    @GeneratedValue(strategy =  GenerationType.SEQUENCE, generator = "seq_curso")
+    @SequenceGenerator(name = "seq_curso", initialValue = 0, sequenceName = "seq_curso", schema = "practica1")
     private Integer id;
     
-    @Column(name = "nombre")
     private String nombre;
     
-    @Column(name = "creditos")
     private Integer creditos;
     
-    @Column(name = "cupo")
     private Integer cupo;
     
-    @Column(name = "docente_asignado")
     @ManyToOne 
     @JoinColumn(name = "id_docente")
     private Docente docenteAsignado;
    
-    @Column(name = "lista_inscriptos")
     @ManyToMany
     @JoinTable(
         name = "cursos_alumnos",
         joinColumns = @JoinColumn(name = "id_curso"),
-        inverseJoinColumns = @JoinColumn(name = "id_alumno")
+        inverseJoinColumns = @JoinColumn(name = "id_alumno"),
+        schema = "practica1"
     )
     private List<Alumno>listaInscriptos;
     
+    public Curso() {
+        this.id = null;
+        this.nombre = "";
+        this.creditos = 0;
+        this.cupo = 0;
+        this.docenteAsignado = null;
+        this.listaInscriptos = new LinkedList<>();
+    }
+
     public Curso(String nombre, Integer creditos, Integer cupo) {
         this.id = null;
         this.nombre = nombre;

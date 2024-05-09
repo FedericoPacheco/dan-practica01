@@ -22,7 +22,6 @@ import isi.dan.practicas.practica1.model.Docente;
 import isi.dan.practicas.practica1.service.persistence.database.AlumnoDAOImplDB;
 import isi.dan.practicas.practica1.service.persistence.database.CursoDAOImplDB;
 import isi.dan.practicas.practica1.service.persistence.database.DocenteDAOImplDB;
-//import isi.dan.practicas.practica1.service.persistence.memory.CursoDAOImplMem;
 
 @Controller 
 @RequestMapping("/curso")
@@ -104,6 +103,7 @@ public class CursoController {
             Alumno a = adi.buscarPorId(idAlumno).get();
             c.inscribirAlumno(a);
             a.addCurso(c);
+            cdi.guardar(c); // No olvidar en la DB. El curso es dueño de la relación many to many
             response = "Alumno " + a.getNombre() + " agregado exitosamente al curso " + c.getNombre();
         } catch (RecursoNoEncontradoException | NoSuchElementException | CupoExcedidoException e) {
             response = e.getMessage();
@@ -119,6 +119,7 @@ public class CursoController {
             Docente d = ddi.buscarPorId(idDocente).get();
             c.setDocenteAsignado(d);
             d.addCursoDictado(c);
+            cdi.guardar(c); // No olvidar guardar en la DB. El curso "recuerda" quien es su docente
             response = "Docente " + d.getNombre() + " agregado exitosamente al curso " + c.getNombre();
         } catch (Exception e) {
             response = e.getMessage();

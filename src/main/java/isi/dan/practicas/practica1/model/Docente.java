@@ -22,17 +22,23 @@ public class Docente {
     @Id
     @Column(name = "id_docente")
     @GeneratedValue(strategy =  GenerationType.SEQUENCE, generator = "seq_docente")
-    @SequenceGenerator(name = "seq_docente", initialValue = 0, sequenceName = "seq_docente")
+    @SequenceGenerator(name = "seq_docente", initialValue = 0, sequenceName = "seq_docente", schema = "practica1")
     private Integer id;
 
     private String nombre;
     
     private Double salario;
     
-    @Column(name = "cursos_dictados")
-    @OneToMany(mappedBy = "curso")
+    @OneToMany(mappedBy = "docenteAsignado")
     private List<Curso> cursosDictados;
     
+    public Docente() {
+        this.id = null;
+        this.nombre = "";
+        this.salario = 0.0;
+        this.cursosDictados = new LinkedList<>();
+    }
+
     public Docente(String nombre, Double salario) {
         this.id = null;
         this.nombre = nombre;

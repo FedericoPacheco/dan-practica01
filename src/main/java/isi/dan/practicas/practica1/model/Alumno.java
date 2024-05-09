@@ -19,19 +19,23 @@ public class Alumno {
     @Id
     @Column(name = "id_alumno")
     @GeneratedValue(strategy =  GenerationType.SEQUENCE, generator = "seq_alumno")
-    @SequenceGenerator(name = "seq_alumno", initialValue = 0, sequenceName = "seq_alumno")
+    @SequenceGenerator(name = "seq_alumno", initialValue = 0, sequenceName = "seq_alumno", schema = "practica1")
     private Integer id;
     
-    @Column(name = "nombre")
     private String nombre;
-    
-    @Column(name = "legajo")
+
     private Integer legajo;
     
-    @Column(name = "cursos_inscriptos")
     @ManyToMany(mappedBy = "listaInscriptos")
     private List<Curso> cursosInscriptos;
     
+    public Alumno() {
+        this.id = null;
+        this.nombre = "";
+        this.legajo = 0;
+        this.cursosInscriptos = new LinkedList<>();
+    }
+
     public Alumno(String nombre, Integer legajo) {
         this.id = null;
         this.nombre = nombre;

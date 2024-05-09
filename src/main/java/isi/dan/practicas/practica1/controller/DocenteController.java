@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import isi.dan.practicas.practica1.exception.RecursoNoEncontradoException;
 import isi.dan.practicas.practica1.model.Docente;
 import isi.dan.practicas.practica1.service.persistence.database.DocenteDAOImplDB;
-//import isi.dan.practicas.practica1.service.persistence.memory.DocenteDAOImplMem;
 
 @Controller 
 @RequestMapping("/docente")
