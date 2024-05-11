@@ -1,0 +1,30 @@
+# Armar imagenes y correr:
+# docker-compose -f infra.yml up --build -d
+services:
+  spring-boot-app:
+    build:
+      context: . # Directorio donde estan los archivos para hacer la imagen
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080" # exponer y mapear el puerto del host al del contenedor
+    environment: # La app tambien tiene que saber las credenciales
+      POSTGRES_DB: dan
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    depends_on:
+      - postgres-db # iniciar antes la db
+
+  postgres-db:
+    image: postgres:latest # imagen de docker hub
+    ports:
+      - "5433:5432" # Exponer para que pueda conectarme desde el host
+    expose:
+      - "5432" # Exponer para spring-boot-app
+    environment:
+      POSTGRES_DB: dan
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres-data:/var/lib/postgresql/data # Montar volumen para persistir datos de la db
+volumes:
+  postgres-data:

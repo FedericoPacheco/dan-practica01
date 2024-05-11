@@ -1,7 +1,7 @@
-# ./mvnw clean install
-# docker build -t app .
-# docker run -d -p 8080:8080 --name app_c1 app
+# Generar .jar:
+# mvn clean package -DskipTests
+# Es importante evitar los tests porque fallan por como esta 
+# configurado application.properties (para uso con contenedor)
 FROM eclipse-temurin:21-jdk-alpine
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} app.jar
-ENTRYPOINT [ "java", "-jar", "/app.jar" ] 
+COPY target/*.jar practica1_app.jar
+ENTRYPOINT [ "java", "-jar", "/practica1_app.jar" ] 

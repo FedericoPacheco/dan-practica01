@@ -22,9 +22,6 @@ import isi.dan.practicas.practica1.model.Docente;
 import isi.dan.practicas.practica1.service.persistence.database.AlumnoDAOImplDB;
 import isi.dan.practicas.practica1.service.persistence.database.CursoDAOImplDB;
 import isi.dan.practicas.practica1.service.persistence.database.DocenteDAOImplDB;
-import isi.dan.practicas.practica1.service.persistence.memory.AlumnoDAOImplMem;
-import isi.dan.practicas.practica1.service.persistence.memory.CursoDAOImplMem;
-import isi.dan.practicas.practica1.service.persistence.memory.DocenteDAOImplMem;
 
 @Controller 
 @RequestMapping("/curso")
