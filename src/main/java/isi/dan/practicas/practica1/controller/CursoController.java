@@ -46,6 +46,7 @@ public class CursoController {
             response = cdi.buscarPorId(id).toString();
         } catch (RecursoNoEncontradoException e) {
             response = e.getMessage();
+            return ResponseEntity.badRequest().body(response);
         }
         return ResponseEntity.ok(response);
     }

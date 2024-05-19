@@ -41,10 +41,9 @@ public class CursoDAOImplDB implements DAO<Curso> {
 
     @Override
     public void baja(Integer id) throws RecursoNoEncontradoException {
-        if(cjr.existsById(id))
+        if(!cjr.existsById(id))
             throw new RecursoNoEncontradoException(id, "Curso");
         else
             cjr.deleteById(id);
     }
-    
 }
