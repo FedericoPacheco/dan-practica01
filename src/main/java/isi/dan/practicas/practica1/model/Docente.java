@@ -3,6 +3,11 @@ package isi.dan.practicas.practica1.model;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+//import com.fasterxml.jackson.annotation.JsonIgnore;
+//import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import isi.dan.practicas.practica1.exception.DocenteExcedidoException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,6 +20,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "docente", schema = "practica1")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Docente.class)
 public class Docente {
 
     public static final Integer MAX_CURSOS = 1;
@@ -29,6 +35,8 @@ public class Docente {
     
     private Double salario;
     
+    //@JsonManagedReference
+    //@JsonIgnore
     @OneToMany(mappedBy = "docenteAsignado")
     private List<Curso> cursosDictados;
     
@@ -81,7 +89,47 @@ public class Docente {
     
     @Override
     public String toString() {
-        return "Docente [id=" + id + ", nombre=" + nombre + ", salario=" + salario + ", cursosDictados="
-                + cursosDictados + "]";
-    }    
+        return "Docente [id=" + id + ", nombre=" + nombre + ", salario=" + salario + "]";
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
+        result = prime * result + ((salario == null) ? 0 : salario.hashCode());
+        result = prime * result + ((cursosDictados == null) ? 0 : cursosDictados.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Docente other = (Docente) obj;
+        if (nombre == null) {
+            if (other.nombre != null)
+                return false;
+        } else if (!nombre.equals(other.nombre))
+            return false;
+        if (salario == null) {
+            if (other.salario != null)
+                return false;
+        } else if (!salario.equals(other.salario))
+            return false;
+        /*
+        if (cursosDictados == null) {
+            if (other.cursosDictados != null)
+                return false;
+        } else if (!cursosDictados.equals(other.cursosDictados))
+            return false;
+        */
+        return true;
+    }
+    
+    
 }

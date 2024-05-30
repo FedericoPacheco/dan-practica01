@@ -1,5 +1,7 @@
 package isi.dan.practicas.practica1.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -25,46 +27,42 @@ public class DocenteController {
 
     @GetMapping(value = "/{id}")
     @ResponseBody
-    public ResponseEntity<String> buscarPorId(@PathVariable Integer id) {
-        String response;
+    public ResponseEntity<Docente> buscarPorId(@PathVariable Integer id) {
+        Docente response;
         try {
-            response = ddi.buscarPorId(id).toString();
+            response = ddi.buscarPorId(id).get();
         } catch (RecursoNoEncontradoException e) {
-            response = e.getMessage();
+            return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(response);
     }
 
     @GetMapping(value = "/all")
     @ResponseBody
-    public ResponseEntity<String> listar() {
-        return ResponseEntity.ok(ddi.listar().toString());
+    public ResponseEntity<List<Docente>> listar() {
+        return ResponseEntity.ok(ddi.listar());
     }
 
     @PostMapping
     @ResponseBody
-    public ResponseEntity<String> guardar(@RequestBody Docente docente) {
-        String response;
+    public ResponseEntity<Integer> guardar(@RequestBody Docente docente) {
         try {
             ddi.guardar(docente);
-            response = "Docente guardado exitosamente";
         } catch (RecursoNoEncontradoException e) {
-            response = e.getMessage();
+            return ResponseEntity.internalServerError().build();
         }
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(docente.getId());
     }
 
     @PutMapping
     @ResponseBody
-    public ResponseEntity<String> modificar(@RequestBody Docente docente) {
-        String response;
+    public ResponseEntity<Integer> modificar(@RequestBody Docente docente) {
         try {
             ddi.guardar(docente);
-            response = "Docente modificado exitosamente";
         } catch (RecursoNoEncontradoException e) {
-            response = e.getMessage();
+            return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(docente.getId());
     }
 
 

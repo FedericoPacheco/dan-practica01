@@ -1,5 +1,6 @@
 package isi.dan.practicas.practica1.controller;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,47 +41,42 @@ public class CursoController {
 
     @GetMapping(value = "/{id}")
     @ResponseBody
-    public ResponseEntity<String> buscarPorId(@PathVariable Integer id) {
-        String response;
+    public ResponseEntity<Curso> buscarPorId(@PathVariable Integer id) {
+        Curso response;
         try {
-            response = cdi.buscarPorId(id).toString();
+            response = cdi.buscarPorId(id).get();
         } catch (RecursoNoEncontradoException e) {
-            response = e.getMessage();
-            return ResponseEntity.badRequest().body(response);
+            return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(response);
     }
 
     @GetMapping(value = "/all")
     @ResponseBody
-    public ResponseEntity<String> listar() {
-        return ResponseEntity.ok(cdi.listar().toString());
+    public ResponseEntity<List<Curso>> listar() {
+        return ResponseEntity.ok(cdi.listar());
     }
 
     @PostMapping
     @ResponseBody
-    public ResponseEntity<String> guardar(@RequestBody Curso curso) {
-        String response;
+    public ResponseEntity<Integer> guardar(@RequestBody Curso curso) {
         try {
             cdi.guardar(curso);
-            response = "Curso " + curso.getNombre() + " guardado exitosamente";
         } catch (RecursoNoEncontradoException e) {
-            response = e.getMessage();
+            return ResponseEntity.internalServerError().build();
         }
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(curso.getId());
     }
 
     @PutMapping
     @ResponseBody
-    public ResponseEntity<String> modificar(@RequestBody Curso curso) {
-        String response;
+    public ResponseEntity<Integer> modificar(@RequestBody Curso curso) {
         try {
             cdi.guardar(curso);
-            response = "Curso " + curso.getNombre() + " modificado exitosamente";
         } catch (RecursoNoEncontradoException e) {
-            response = e.getMessage();
+            return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(curso.getId());
     }
 
     @DeleteMapping(value = "/{id}")

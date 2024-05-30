@@ -64,6 +64,6 @@ public class CursoControllerUnitTests {
         // Da efectivamente bad request pero por algun motivo lo percibe como
         // error en lugar de test exitoso xd
         //ResponseEntity<String> response2 = restClient.exchange(url + "/10", HttpMethod.GET, null, String.class);
-        //assertTrue(response2.getStatusCode().equals(HttpStatus.BAD_REQUEST));
+        //assertTrue(response2.getStatusCode().equals(HttpStatus.NOT_FOUND));
     }
 }
